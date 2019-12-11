@@ -9,14 +9,13 @@ typedef char* TE;
 
 struct mine
 {
-    TE str = new char[255];//поле данных
-    mine* next;// адресное поле
+    TE str = new char[255]; //data field
+    mine* next;             //address field
 };
 
 mine* declare(int& i)
 {
 /*
-
     mine* head = new mine;
 
 
@@ -85,23 +84,15 @@ mine* declare(int& i)
             temp = temp->next;
             temp->str = "elem9";
 
-
-
-    temp->next = NULL;
-   /* temp->next = new mine;
-    temp = temp->next;
-    temp->str = NULL;*/
     cout << "End of " << i << " list" << endl;
     cout << endl;
 
     head = head->next;
-  //  delete temp2;
     return head;
-}    //declare elem end
+}
 
 int showLists(mine* head)
 {
-    //cout << "here" << endl;
     int i = 0;
     cout << endl << "   ";
     for (mine* temp = head; temp != NULL; temp = temp->next)
@@ -113,13 +104,10 @@ int showLists(mine* head)
         {
             cout << endl << endl;
         }
-        //cout << "JIOX    ";
     }
     cout << endl << endl;
     return 0;
 }
-
-
 
  mine *changeL(int m, mine *head)
  {
@@ -144,7 +132,6 @@ int showLists(mine* head)
     else
         return head;
  }
-
 
 mine *del_element_end(mine* head)
 {
@@ -184,61 +171,84 @@ mine *del_second(mine* head)
     return head;
 }
 
-
-
 int ListQ(mine *head)
 {
-       int m = 1;
-       mine *temp = head;
-       cout <<endl<< endl<< temp->str << endl << endl;
-       while(temp != NULL)
-       {
-              cout <<endl<< endl<< temp->str << endl << endl;
-              temp = temp->next;
-              m++;
-       }
-       return m;
+    int m = 0;
+    mine *temp = head;
+    while(temp != NULL)
+    {
+        temp = temp->next;
+        m++;
+    }
+    return m;
 }
 
-mine *add(mine *head, int m)
+mine *addF(mine *head, int m)
 {
-       mine *common = head;
-       while(common->str != NULL)
-       {
-               common = common->next;
-       }
-       common->next = new mine;
-       common = common->next;
-       cin >> common->str;
-       head = changeL(m+1, head);
-       common->next = NULL;
-       return head;
+    int i = 1;
+    mine *common = head;
+    for (mine* temp = head; temp->next != NULL; temp = temp->next)
+    {
+        common = common->next;
+        i++;
+    }
+    common->next = new mine;
+    cout << endl << "Please, enter 1 element *front add*" << endl << endl;
+    cin >> common->next->str;
+    common->next->next = new mine;
+    common->next->next = NULL;
+    head = changeL(m+2, head);
+    return head;
 }
 
-
+mine *addB(mine *head, int m)
+{
+    int i = 1;
+    mine *common = head;
+    for (mine* temp = head; temp->next != NULL; temp = temp->next)
+    {
+        common = common->next;
+        i++;
+    }
+    common->next = new mine;
+    cout << endl << "Please, enter 1 element *back add*" << endl << endl;
+    cin >> common->next->str;
+    common->next->next = new mine;
+    common->next->next = NULL;
+    return head;
+}
 
 mine *DelC(mine *head)
 {
        int m = ListQ(head);
-       head = add(head, m);
+       //cout << m << endl << endl;
+       //showLists(head);
+       head = addF(head, m);
+       showLists(head);
+        //cout << m << endl;  m == 9;
        mine *common = head;
-       TE a = common->str;
-       while(common->str != NULL)
+       cout << "a is: ";
+       //cout << endl <<common->next->next->str << endl;
+       TE a = head->str;
+       //cout << "a is: "; //<< a;
+       while(common->next->str != NULL)
        {
-               common = common->next;
-               if(common->str == a)
+               //common = common->next;
+               if(common->next->str == a)
                {
                        cout << "Found similar element" << endl;
 
                        return del_first(head);
                }
-               else
-               {
+               common = common->next;
+        }
                       cout << "No similar elem found; list updated" << endl;
                       head = del_element_end(head);
                       return head;
-               }
-       }
+
+
+
+
     //   common->next = new mine
    //    common = common->next
   //     common->str = "elem2"
@@ -248,10 +258,8 @@ mine *DelC(mine *head)
 void write(mine* head)
 {
     ofstream output ("list.txt");
-   // _setmode (_fileno (output), _O_U8TEXT);
-    for (mine* temp = head; temp->next != NULL; temp = temp->next)
+    for (mine* temp = head; temp != NULL; temp = temp->next)
     {
-  //      output.write(temp->str, sizeof(mine));
         output << temp->str << setw(10);
     }
     output.close();
@@ -259,15 +267,12 @@ void write(mine* head)
 
 int main()
 {
-   /* TE s;
-    cin >> s;
-    cout << s;
-*/
     int i = 1;
-    char var;
+    char var = '1';
     mine* head;
     head = declare(i);
-    while (1 == 1)
+    int m = NULL;
+    while (var != 0)
     {
         cout << "Menu: "                   << endl
         << "-1 Show lists"                 << endl
@@ -276,6 +281,8 @@ int main()
         << "-4 Delete last element"        << endl
         << "-5 Delete the similar element" << endl
         << "-6 Write to file"              << endl
+        << "-7 Add an element *front lst*" << endl
+        << "-8 Add an element *back lst*"  << endl
         << "-0 EXIT"                       << endl;
         cin >> var;
         switch (var)
@@ -298,15 +305,23 @@ int main()
             case '6':
                 write(head);
                 break;
+            case '7':
+                m = ListQ(head);
+                head = addF(head, m);
+                break;
+            case '8':
+                m = ListQ(head);
+                head = addB(head, m);
+                break;
             case '0':
-                return 0;
+                var = 0;
                break;
             default:
                 cout << "Wrong value!" << endl;
                 break;
         }
     }
-    cout << "11";
+    cout << "END";
     return 0;
     //system("pause");
 }
