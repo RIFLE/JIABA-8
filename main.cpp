@@ -1,5 +1,7 @@
 #include <iostream>
 #include <fstream>
+//#include <fcntl.h>
+//#include <bits/stdc++.h>
 #include <iomanip>
 using namespace std;
 // check
@@ -208,7 +210,7 @@ mine *add(mine *head, int m)
        common->next = new mine;
        common = common->next;
        cin >> common->str;
-       changeL(m+1, head);
+       head = changeL(m+1, head);
        common->next = NULL;
        return head;
 }
@@ -245,10 +247,12 @@ mine *DelC(mine *head)
 
 void write(mine* head)
 {
-    ofstream output("lists.txt", ios::binary);
-    for (mine* temp = head; temp != NULL; temp = temp->next)
+    ofstream output ("list.txt");
+   // _setmode (_fileno (output), _O_U8TEXT);
+    for (mine* temp = head; temp->next != NULL; temp = temp->next)
     {
-        output.write((char*)temp, sizeof(mine));
+  //      output.write(temp->str, sizeof(mine));
+        output << temp->str << setw(10);
     }
     output.close();
 }
