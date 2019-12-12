@@ -18,3 +18,16 @@ V1.3
     ALL AVAILABLE FUNCTIONS ARE WORKING CORRECTLY;
     stringstream used in DelC()    
     some code was redesigned;
+
+V2.0
+    *FINAL VERSION*
+    Complete regesign and exc.sit. check
+    Files: main.cpp
+           functions.cpp
+           module.h
+
+PS: Lab work #8 V#10;
+    Telegram: @MLNick
+    Project was made by RIFLE
+    KPI IPT 12.12.2019
+    
