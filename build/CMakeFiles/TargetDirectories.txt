@@ -1,0 +1,1 @@
+/home/nick/lab/build/CMakeFiles/lab.dir

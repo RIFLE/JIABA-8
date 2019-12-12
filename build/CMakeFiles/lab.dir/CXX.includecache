@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/nick/lab/functions.cpp
+module.h
+/home/nick/lab/module.h
+
+/home/nick/lab/main.cpp
+module.h
+/home/nick/lab/module.h
+
+/home/nick/lab/module.h
+iostream
+-
+fstream
+-
+iomanip
+-
+sstream
+-
+string
+-
+
