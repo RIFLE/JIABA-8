@@ -3,6 +3,8 @@
 //#include <fcntl.h>
 //#include <bits/stdc++.h>
 #include <iomanip>
+#include <sstream>
+#include <string>
 using namespace std;
 // check
 typedef char* TE;
@@ -109,8 +111,8 @@ int showLists(mine* head)
     return 0;
 }
 
- mine *changeL(int m, mine *head)
- {
+mine *changeL(int m, mine *head)
+{
     mine *far = head;
     for(int i=0; i<m-2; i++)
     {
@@ -131,7 +133,7 @@ int showLists(mine* head)
     }
     else
         return head;
- }
+}
 
 mine *del_element_end(mine* head)
 {
@@ -218,40 +220,36 @@ mine *addB(mine *head, int m)
     return head;
 }
 
+
 mine *DelC(mine *head)
 {
-       int m = ListQ(head);
-       //cout << m << endl << endl;
-       //showLists(head);
-       head = addF(head, m);
-       showLists(head);
-        //cout << m << endl;  m == 9;
-       mine *common = head;
-       cout << "a is: ";
-       //cout << endl <<common->next->next->str << endl;
-       TE a = head->str;
-       //cout << "a is: "; //<< a;
-       while(common->next->str != NULL)
-       {
-               //common = common->next;
-               if(common->next->str == a)
-               {
-                       cout << "Found similar element" << endl;
-
-                       return del_first(head);
-               }
-               common = common->next;
+    int m = ListQ(head);
+    mine *common, *other;
+    head = addF(head, m);
+    showLists(head);
+    common = head;
+    other = common;
+    stringstream a,b[m];
+    string aa,bb[m];
+    a << common->str;
+    a >> aa;
+    int i = 0;
+    for(mine *temp = head; temp->next!=NULL; temp = temp->next)
+    {
+        common = common->next;
+        b[i] << common->str;
+        b[i] >> bb[i];
+      //  cout << endl << aa << "   ";
+     //   cout << bb[i] << endl << endl << endl;
+        if(aa == bb[i])
+        {
+            cout << "Found similar element." << endl << endl;
+            return del_first(head);
         }
-                      cout << "No similar elem found; list updated" << endl;
-                      head = del_element_end(head);
-                      return head;
-
-
-
-
-    //   common->next = new mine
-   //    common = common->next
-  //     common->str = "elem2"
+        i++;
+    }
+   cout << "No similar element found. List updated." << endl << endl;
+   return head;
 }
 
 
@@ -263,6 +261,22 @@ void write(mine* head)
         output << temp->str << setw(10);
     }
     output.close();
+}
+
+int check(mine* head)
+{
+    stringstream a, b;//a = head->str, b = head->next->next->str;
+    a << head->str;
+    b << head->next->next->str;
+    //cout << a << "   " << b << endl << endl;
+    string c, d;
+    a >> c;
+    b >> d;
+    if (c == d/*head->str == head->next->next->str*/)
+    {
+        cout << "yes";
+    }
+    return 0;
 }
 
 int main()
@@ -312,6 +326,9 @@ int main()
             case '8':
                 m = ListQ(head);
                 head = addB(head, m);
+                break;
+            case '9':
+                check(head);
                 break;
             case '0':
                 var = 0;

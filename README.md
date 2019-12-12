@@ -13,3 +13,8 @@ V1.1
 V1.2
     New functions: addB, addF.
     some more code adjustments.
+
+V1.3
+    ALL AVAILABLE FUNCTIONS ARE WORKING CORRECTLY;
+    stringstream used in DelC()    
+    some code was redesigned;
